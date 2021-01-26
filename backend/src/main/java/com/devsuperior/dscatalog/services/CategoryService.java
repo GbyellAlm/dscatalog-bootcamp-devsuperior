@@ -53,4 +53,15 @@ public class CategoryService {
 		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada"));
 		return new CategoryDTO(entity);
 	}
+	
+	// INSERE CATEGORIA
+	@Transactional
+	public CategoryDTO insert(CategoryDTO dto) {
+		// Transformando a categoria q recebi - q esta em "DTO" - em "Category" (entidade) pra poder salva-la no bd.
+		Category entity = new Category();
+		entity.setName(dto.getName());
+		// Salvando a categoria no bd. * O metodo "save()" retorna uma referencia pra entidade salva, por isso essa operacao foi atribuida a uma variavel (entity).
+		entity = repository.save(entity);
+		return new CategoryDTO(entity);
+	}
 }
