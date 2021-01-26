@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
-import com.devsuperior.dscatalog.services.exceptions.EntityNotFoundException;
+import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -50,7 +52,7 @@ public class CategoryService {
 		// "Optional" eh um metodo q evita q eu trampe c/ valores nulos. Tipo, c/ esse metodo o retorno da busca nunca vai ser nulo, e sim do tipo "Optional". ATENCAO! O valor valor msm da busca pode ser nulo daí (ex: buscando o id 44, mas o id 44 n existe). A importacao eh do "Java.util". 
 		Optional<Category> obj = repository.findById(id);
 		// O "Optional" tem a entidade q veio do bd. Preciso obter essa entidade do Optional (eh isso q a linha 52 faz).
-		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada"));
+		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entidade não encontrada"));
 		return new CategoryDTO(entity);
 	}
 	
@@ -63,5 +65,22 @@ public class CategoryService {
 		// Salvando a categoria no bd. * O metodo "save()" retorna uma referencia pra entidade salva, por isso essa operacao foi atribuida a uma variavel (entity).
 		entity = repository.save(entity);
 		return new CategoryDTO(entity);
+	}
+	
+	// ATUALIZA CATEGORIA
+	@Transactional
+	public CategoryDTO update(Long id, CategoryDTO dto) {
+		// "try" "catch()" pq o "id" q o metodo "update()" recebeu pode n existir.
+		try {
+			// "getOne()" eh um metodo do JPA pra atualizar dados. Ele atualiza um dado instanciando um obj provisorio (ex: Category entity) c/ seus dados (ex: No caso do Category, "id" e "name"), e chamando o metodo "save()" do JPA, q efetiva a atualizacao e acessa o bd 1x soh (diferentemente se fosse atualizar c/ os metodos "findById()" e "save()". O acesso ao bd seria duplicado dai).
+			Category entity = repository.getOne(id);
+			entity.setName(dto.getName());
+			entity = repository.save(entity);
+			return new CategoryDTO(entity);
+		}
+		// javax.persistence (importacao do "EntityNotFoundException")
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id não encontrado");
+		}
 	}
 }
