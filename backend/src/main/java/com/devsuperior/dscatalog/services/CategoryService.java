@@ -1,7 +1,5 @@
 package com.devsuperior.dscatalog.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -9,6 +7,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,29 +24,37 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	// BUSCA TODAS AS CATEGORIAS
+	/*
+	 * BUSCA TODAS AS CATEGORIAS (FORMA N PAGINADA)
+	 * @Transactional(readOnly = true)
+	 * "findAll()" n eh uma funcao da linguagem. Eh uma funcao q criei.
+	 * public List<CategoryDTO> findAll() {
+	 * 		List<Category> list = repository.findAll();
+	 * 		
+	 * 		Transformando o "list" em uma lista de DTO.
+	 * 		List <CategoryDTO> listDTO = new ArrayList<>();
+	 * 		Pra cada categoria "cat" na minha lista "list"
+	 * 		for (Category cat : list) {
+	 * 			listDTO.add(new CategoryDTO(cat));
+	 * 		}
+	 * 		return listDTO;
+	 * 
+	 * EU PODERIA TRANSFORMAR O "list" EM UMA LISTA DE DTO DA SEGUINTE FORMA TB:
+	 * 
+	 * return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+	 * 		- O q eh esse metodo "stream()"?
+	 * 			R: Eh um metodo (disponivel a partir do Java 8) q permite trabalhar c/ funcoes de alta ordem (inclusive c/ funcoes de expressoes lambida por ex). Ele permite fazer transformacoes na minha colecao (lista).
+	 * 		
+	 * 		- O q eh esse metodo "map()"?
+	 * 			R: Eh um metodo de expressoes lambida q transforma cada elemento de um tipo em outro tipo. Ele aplica uma funcao a cada elemento da lista pra poder fazer isso. No video https://www.youtube.com/watch?v=ZYPQmfcZGxg&t=1s o Nelio explica c/ mais detalhes o q eh esse "map()".
+	 */
+	
+	// BUSCA TODAS AS CATEGORIAS (FORMA PAGINADA)
 	@Transactional(readOnly = true)  
-	// "findAll()" n eh uma funcao da linguagem. Eh um nome qlqr q o prof colocou pra funcao ("findAll()" eh o nome da funcao). 
-	public List<CategoryDTO> findAll() {
-		List<Category> list = repository.findAll();
-		
-		// Transformando a lista de categoria de cima em uma lista de DTO.
-		List <CategoryDTO> listDTO = new ArrayList<>();
-		// Pra cada categoria "cat" na minha lista "list"
-		for (Category cat : list) {
-			listDTO.add(new CategoryDTO(cat));
-		}
-		
-		return listDTO;
-		
-		/* 
-		 * Posso fazer essa transformacao dessa forma tb: 
-		 	* return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-		 		* O q eh esse metodo "stream()"?
-		 			* R: Eh um metodo (disponivel a partir do Java 8) q permite trabalhar c/ funcoes de alta ordem (inclusive c/ funcoes de expressoes lambida por ex). Ele permite fazer transformacoes na minha colecao (lista).
-		 		* O q eh esse metodo "map()"?
-		 			* R: Eh um metodo de expressoes lambida q transforma cada elemento de um tipo em outro tipo. Ele aplica uma funcao a cada elemento da lista pra poder fazer isso. No video https://www.youtube.com/watch?v=ZYPQmfcZGxg&t=1s o Nelio explica c/ mais detalhes o q eh esse "map()".	   	
-		 */
+	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Category> list = repository.findAll(pageRequest);
+		// N tem o metodo "stream()" pq ele ja ta implementado no Page, a partir do Java 8.
+		return list.map(x -> new CategoryDTO(x));
 	}
 	
 	// BUSCA CATEGORIA POR ID
