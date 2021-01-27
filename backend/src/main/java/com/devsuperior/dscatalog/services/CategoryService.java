@@ -7,12 +7,15 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
+import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -70,7 +73,7 @@ public class CategoryService {
 	// ATUALIZA CATEGORIA
 	@Transactional
 	public CategoryDTO update(Long id, CategoryDTO dto) {
-		// "try" "catch()" pq o "id" q o metodo "update()" recebeu pode n existir.
+		// "try" "catch()" pq posso tentar atualizar um "id" q n existe.
 		try {
 			// "getOne()" eh um metodo do JPA pra atualizar dados. Ele atualiza um dado instanciando um obj provisorio (ex: Category entity) c/ seus dados (ex: No caso do Category, "id" e "name"), e chamando o metodo "save()" do JPA, q efetiva a atualizacao e acessa o bd 1x soh (diferentemente se fosse atualizar c/ os metodos "findById()" e "save()". O acesso ao bd seria duplicado dai).
 			Category entity = repository.getOne(id);
@@ -81,6 +84,21 @@ public class CategoryService {
 		// javax.persistence (importacao do "EntityNotFoundException")
 		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id não encontrado");
+		}
+	}
+	// DELETA CATEGORIA
+	// N tem a notation "@Transactional" pq qro pegar uma excecao do bd.
+	public void delete(Long id) {
+		// "try" "catch()" pq posso tentar deletar algo q n existe e algo q n eh pra deletar (algo q vai gerar uma inconsistencia referente ao modelo de classes/ bd).
+		try {
+			repository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e ) {
+			throw new ResourceNotFoundException("Id não encontrado");
+			
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Violação de integridade");
 		}
 	}
 }
