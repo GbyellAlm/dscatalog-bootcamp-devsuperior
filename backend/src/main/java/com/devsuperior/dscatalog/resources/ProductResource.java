@@ -17,66 +17,57 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.services.CategoryService;
+import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResource {
+@RequestMapping(value = "/products")
+public class ProductResource {
 	
 	@Autowired
-	private CategoryService service;
+	private ProductService service;
 	
-	// BUSCA TODAS AS CATEGORIAS (FORMA PAGINADA)
+	// BUSCA TDS OS PRODUTOS (FORMA PAGINADA)
 	@GetMapping
-	// A importacao do "Page" eh a do "springframework".
-	public ResponseEntity<Page <CategoryDTO>> findAll(
+	public ResponseEntity<Page <ProductDTO>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy
 			) {
-		// "Direction.valueOf(direction)" ta convertendo o "direction" (q eh uma string) pro tipo Direction.
+
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		
-		Page<CategoryDTO> list = service.findAllPaged(pageRequest);
+		Page<ProductDTO> list = service.findAllPaged(pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
 	
-	// BUSCA CATEGORIA POR ID
-	@GetMapping(value = "/{id}")
-	// "@PathVariable" eh pra q o "Long id" seja o msm id passado como parametro na rota. 
-	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-		CategoryDTO dto = service.findById(id);
+	// BUSCA PRODUTO POR ID
+	@GetMapping(value = "/{id}") 
+	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
+		ProductDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	// INSERE CATEGORIA
+	// INSERE PRODUTO
 	@PostMapping
-	// "ResponseEntity<CategoryDTO>" pq qro ver o q foi inserido pra ver se deu certo.
-	// "CategoryDTO" como parametro da funcao "insert()" pq n eh so passar o nome da categoria q qro criar como parametro. Tenho q passar o objeto da categoria pq eh nele q tem o valor nome da categoria.
-	// "@RequestBody" eh pra q o "CategoryDTO dto" case c/ o objeto q eh passado na requisicao - eh basicamente a msm situacao do "Long id" do codigo de cima.
-	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
-		// O resultado da insercao vai retornar nessa variavel "dto".
+	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
 		dto = service.insert(dto);
-		// Esse "URI Uri..." eh pra q no cabecalho de resposta HTTP apareca o endereço (rota) do recurso inserido.
-		// A importacao do "URI" eh o "java.net.uri".
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 	
-	// ATUALIZA CATEGORIA
+	// ATUALIZA PRODUTO
 	@PutMapping(value = "{id}")
-	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	// DELETA CATEGORIA
+	// DELETA PRODUTO
 	@DeleteMapping(value = "{id}")
-	public ResponseEntity<CategoryDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<ProductDTO> delete(@PathVariable Long id) {
 		service.delete(id);
-		// A resp HTTP vai ser de cod 204 e de corpo vazio.
 		return ResponseEntity.noContent().build();
 	}
 }

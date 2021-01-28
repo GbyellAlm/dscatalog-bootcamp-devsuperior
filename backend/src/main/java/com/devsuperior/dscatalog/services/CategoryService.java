@@ -49,7 +49,7 @@ public class CategoryService {
 	 * 			R: Eh um metodo de expressoes lambida q transforma cada elemento de um tipo em outro tipo. Ele aplica uma funcao a cada elemento da lista pra poder fazer isso. No video https://www.youtube.com/watch?v=ZYPQmfcZGxg&t=1s o Nelio explica c/ mais detalhes o q eh esse "map()".
 	 */
 	
-	// BUSCA TODAS AS CATEGORIAS (FORMA PAGINADA)
+	// BUSCA TDAS AS CATEGORIAS (FORMA PAGINADA)
 	@Transactional(readOnly = true)  
 	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Category> list = repository.findAll(pageRequest);
