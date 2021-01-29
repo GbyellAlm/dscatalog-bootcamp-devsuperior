@@ -62,7 +62,7 @@ public class CategoryService {
 	public CategoryDTO findById(Long id) {
 		// "Optional" eh um metodo q evita q eu trampe c/ valores nulos. Tipo, c/ esse metodo o retorno da busca nunca vai ser nulo, e sim do tipo "Optional". ATENCAO! O valor valor msm da busca pode ser nulo daí (ex: buscando o id 44, mas o id 44 n existe). A importacao eh do "Java.util". 
 		Optional<Category> obj = repository.findById(id);
-		// O "Optional" tem a entidade q veio do bd. Preciso obter essa entidade do Optional (eh isso q a linha 52 faz).
+		// O "Optional" tem a entidade q veio do bd. Preciso obter essa entidade do Optional (eh isso q a linha 66 faz).
 		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entidade não encontrada"));
 		return new CategoryDTO(entity);
 	}
