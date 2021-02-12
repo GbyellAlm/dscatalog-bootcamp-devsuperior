@@ -1,0 +1,24 @@
+.btn-icon {
+    height: 70px;
+    // Largura de 380px pq foi diminuido a largura do botao e a do icone - O figma considera o botao e o icone 1 coisa so, por isso foi feito essa subtracao.
+    width: 380px;
+    /* 
+        * "border-radius: 10px 0 0 10px;" eh pra colocar as bordas laterais esquerda no botao.
+            * Ql a ordem desse "10px 0 0 10px;"?
+                R: 10px na lateral superior esquerda, 0 na lateral superior direita, 0 na lateral inferior direita e 10px na leteral inferior esquerda.
+    */
+    border-radius: 10px 0 0 10px;
+    // "text-transform: uppercase;" transforma o texto do botao de minusculo pra maiusculo.
+    text-transform: uppercase;
+}
+
+.btn-icon-content {
+    background-color: #33569b;
+    width: 70px;
+    // N foi botado o "height" tb pq o icon herda a altura do "<button></button>".
+    border-radius: 0 10px 10px 0;
+    // "align-items: center;" alinha verticalmente ao centro o icone.
+    align-items: center;
+    // "justify-content: center;" alinha horizontalmente ao centro o icone.
+    justify-content: center;
+}
