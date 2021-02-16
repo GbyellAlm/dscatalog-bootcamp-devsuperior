@@ -1,0 +1,88 @@
+.product-details-container {
+    margin-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.product-details {
+    /*
+        * "padding: 50px 60px 90px 60px;" eh pra respeitar os espacamentos do Figma *espacamentos do box*.
+        * Como ler esse "50px 60px 90px 60px;"?
+            R: Superior, direita, inferior e esquerda.
+    */
+    padding: 50px 60px 90px 60px;
+}
+
+.product-details-goback {
+    // "display: flex;" eh pra q o texto "Voltar" fique ao lado da seta.
+    display: flex;
+    // "align-items: center;" eh pra q o texto "Voltar" fique alinhado c/ a seta.
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.icon-goback {
+    color: #407bff;
+    // "transform: rotate*-180deg*;" eh pra q o sentido da seta seja invertido pra esquerda.
+    transform: rotate(-180deg);
+    margin-right: 24px;
+    // "width: 18px;" e "height: 18px;" eh uma conf q fiz pra diminuir o tamanho da seta, pois ela estava mt exagerada pra minha tela.
+    width: 18px;
+    height: 18px;
+}
+
+.text-goback {
+    // "font-size: 18px;" eh uma conf q fiz pra diminuir o tamanho do texto "Voltar", pois ele estava mt exagerado pra minha tela.
+    font-size: 18px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #263238;
+    text-transform: uppercase;
+}
+
+.product-details-card {
+    border: 1px solid #E1E1E1;
+    border-radius: 20px;
+    /*
+        * "padding: 38px 29px;" eh pra respeitar os espacamentos do Figma *espaçamentos do card*.;
+        * Como ler esse "38px 29px;"?
+            R: "38px" no "eixo x" *padding-top e padding-botton* e "29px" no "eixo y" *padding-left e padding-right*.
+    */
+    padding: 38px 29px;
+}
+
+.product-details-image {
+    width: 353px;
+    height: 353px;
+}
+
+.product-description-title {
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #9E9E9E;
+    margin-bottom: 25px;
+}
+
+.product-description-text {
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+    color: #9E9E9E;
+}
+
+.product-details-name {
+    // "font-size: 28px;" eh uma conf q fiz pra diminuir o tamanho do titulo do prod, pois ele estava mt exagerado pra minha tela.
+    line-height: 49px;
+    letter-spacing: -0.015em;
+    margin-top: 35px;
+}
+
+/*
+    * Seletor q modifica o tamanho do preco do produto na pag "ProductDetails";
+        - O q eh esse seletor "product-price"?
+            R: Eh a classe responsavel pelo texto do preco do prod do componente "ProductPrice".
+*/
+.product-details .product-price {
+    font-size: 36px;
+}

@@ -1,24 +1,27 @@
 .btn-icon {
     height: 70px;
-    // Largura de 380px pq foi diminuido a largura do botao e a do icone - O figma considera o botao e o icone 1 coisa so, por isso foi feito essa subtracao.
+    // "width: 380px;" eh a largura do botao. *Botao e icone sao 2 coisas !=*.
     width: 380px;
     /* 
-        * "border-radius: 10px 0 0 10px;" eh pra colocar as bordas laterais esquerda no botao.
-            * Ql a ordem desse "10px 0 0 10px;"?
-                R: 10px na lateral superior esquerda, 0 na lateral superior direita, 0 na lateral inferior direita e 10px na leteral inferior esquerda.
+        * "border-radius: 10px 0 0 10px;" eh as bordas esquerda do botao. 
+        * Como ler esse "10px 0 0 10px;"?
+            R: Ponta esquerda superior, ponta direita superior, ponta direita inferior e ponta esquerda inferior. 
     */
     border-radius: 10px 0 0 10px;
-    // "text-transform: uppercase;" transforma o texto do botao de minusculo pra maiusculo.
+    // "text-transform: uppercase;" eh pra transformar o texto do botao em maiusculo.
     text-transform: uppercase;
 }
 
 .btn-icon-content {
     background-color: #33569b;
     width: 70px;
-    // N foi botado o "height" tb pq o icon herda a altura do "<button></button>".
+    // ATENCAO! N coloquei "height" tb pq o icon herda a altura do elemento HTML "<button></button>".
     border-radius: 0 10px 10px 0;
-    // "align-items: center;" alinha verticalmente ao centro o icone.
+    display: flex;
+    // "align-items: center;" eh pra alinhar o icone verticalmente ao centro.
     align-items: center;
-    // "justify-content: center;" alinha horizontalmente ao centro o icone.
+    // "justify-content: center;" eh pra alinhar o icone horizontalmente ao centro.
     justify-content: center;
+    // "color:white;" eh pq o sist tem varias setas *arrow.svg*, cada uma c/ uma cor !=. Defini no atributo "stroke" do "arrow.svg" o valor "currentColor" pra q eu possa usar uma determinada cor pra cada uso da seta.
+    color: white;
 }

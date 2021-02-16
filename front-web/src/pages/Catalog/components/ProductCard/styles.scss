@@ -1,51 +1,30 @@
 .product-card {
-    // Comentei pq na classe ".catalog-products" *q esta no CSS do componente "Catalog"* defini a largura em "grid-template-columns: repeat(auto-fill, 250px);".
+    // "width: 245px;" tah comentado pq jah defini a largura do card na conf "grid-template-columns: repeat*auto-fill, 250px*;", q estah na classe ".catalog-products" *classe do componente "Catalog"*.
     //width: 245px;
     /*
-        * "padding: 20px 20px 30px 20px;" eh pq nos desenhos dos "cards" da tela "Catalog", existe espacamentos interiores.
-        * Ql a ordem de leitura dessas medidas?
-            R: Em cima, direita, em baixo e esquerda.
+        * "padding: 20px 20px 30px 20px;" eh pra respeitar os espacamentos do Figma.
+        * Ql ler esse "20px 20px 30px 20px;"?
+            R: Superior, direita, inferior e esquerda.
     */
     padding: 20px 20px 30px 20px;
-    // Alinha a foto do prod ao centro.
+    // "text-align: center;" eh pra alinhar ao centro a foto do prod.
     text-align: center;
 }
 
 .product-info {
-    // Adc uma linha q tem nos desenhos dos "cards" da tela "Catalog" entre a foto do prod e o titulo do prod.
+    // "border-top: 1px solid #E1E1E1;" eh pra criar uma linha entre a foto e o titulo do prod.
     border-top: 1px solid #E1E1E1;
-    // Alinha o titulo e o preco do prod a esquerda.
+    // "text-align: left;" eh pra alinhar a esquerda o titulo e o preco do prod.
     text-align: left;
-    // Adc espacamento frontal entre o titulo do prod e a borda cinza.
+    // "padding-top: 15px;" eh pra respeitar os espacamentos do Figma *espacamento entre a linha e o titulo*.
     padding-top: 15px;
-    // Adc espacamento frontal entre a borda cinza e a foto do prod.
+    // "margin-top: 15px;" eh pra respeitar os espacamentos do Figma *espacamento entre a foto e a linha*.
     margin-top: 15px;
 }
 
 .product-name {
     font-size: 18px;
     line-height: 25px;
-    letter-spacing: -0.015em;   
-}
-
-.product-price-container {
-    display: flex;
-    // Adc espacamento frontal entre o preco e o titulo do prod.
-    margin-top: 5px;
-}
-
-.product-currency {
-    font-size: 18px;
-    line-height: 25px;
     letter-spacing: -0.015em;
-    color: #9E9E9E;
-}
-
-.product-price {
-    font-size: 32px;
-    line-height: 44px;
-    letter-spacing: -0.015em;
-    color: #407BFF;
-    // Adc espacamento lateral esquerdo entre o preco e o cifrao.
-    margin-left: 10px;
+    color: #263238;
 }

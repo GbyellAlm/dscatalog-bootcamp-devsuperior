@@ -1,12 +1,12 @@
 .home-container {
-    // "margin-top: 40px;", "padding-left: 40px;" e "padding-right: 40px;" eh pq no desenho da tela "Home", existe um espacamento frontal e lateral *direito e esquerdo* entre a "Home" e o "Navbar".
+    // "margin-top: 40px;", "padding-left: 40px;" e "padding-right: 40px;" eh pra respeitar os espacamentos do Figma.
     margin-top: 40px;
     padding-left: 40px;
     padding-right: 40px;
 }
 
 .home-content {
-    // "padding-top: 155px;" e "padding-left: 100px;" eh pq no desenho da tela "Home", o texto dentro dela *Conheca...* possui uma distancia superior de 155px e lateral esquerda de 100px. 
+    // "padding-top: 155px;", "padding-left: 100px;" e "padding-bottom: 150px;" eh pra respeitar os espacamentos do Figma.
     padding-top: 155px;
     padding-left: 100px;
     padding-bottom: 150px;
@@ -14,21 +14,21 @@
 
 .text-title {
     font-size: 55px;
-    // "line-height: 75px;" e "letter-spacing: -0.015em;" significam, respectivamente, altura da linha e espaçamento entre letras.
+    // "line-height: 75px;" e "letter-spacing: -0.015em;" significam, respectivamente, altura da linha e espacamento entre as letras.
     line-height: 75px;
     letter-spacing: -0.015em;
 }
 
 .text-subtitle {
-    color: #9e9e9e;
     font-size: 24px;
     line-height: 33px;
     letter-spacing: -0.015em;
-    margin-top: 26px;
+    color: #9e9e9e;
+    margin-top: 30px;
     margin-bottom: 150px;
 }
 
 .main-image {
-    // Ajeita a img *dxa ela menor e mais pra esquerda *no meu monitor* - pra ser fiel ao desenho da tela*
+    // Ajeita a img *dxa ela menor e mais pra esquerda *no meu monitor* - pra ser fiel ao Figma*
     width: 100%;
 }

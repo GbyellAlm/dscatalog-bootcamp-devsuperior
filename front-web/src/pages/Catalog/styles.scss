@@ -1,5 +1,5 @@
 .catalog-container {
-   // "margin-top: 26px;", "padding-left: 40px;" e "padding-right: 40px;" eh pq no desenho da tela "Catalog", existe um espacamento frontal e lateral *direito e esquerdo* entre o "Catalog" e o "Navbar".
+   // "margin-top: 26px;", "padding-left: 40px;" e "padding-right: 40px;" eh eh pra respeitar os espacamentos do Figma.
     margin-top: 26px;
     padding-left: 40px;
     padding-right: 40px;
@@ -12,18 +12,23 @@
 }
 
 .catalog-products {
-    // "margin-top: 43px;" eh pq no desenho da tela "Catalog", entre os "cards" e o título "Catálogo de produtos" e campo de busca, existe um espacamento frontal.
+    // "margin-top: 43px;" eh pra respeitar os espacamentos do Figma.
     margin-top: 43px;
-    // Pra poder organizar os cards em colunas.
+    // "display: grid;" eh pra organizar os cards em colunas.
     display: grid;
     /*
-        * Pra poder criar as colunas de fato, pq somente c/ "display: grid;" cria 1 coluna soh c/ uma porrada de produtos;
-        * O metodo "repeat" eh pra eu n precisar ficar escrevendo qtas colunas qro criar manualmente *"grid-template-columns: 250px 250px" *2 colunas de 250px nesse ex**;
-        * O parametro "auto-fill" esta explicado nas anotacoes "Aula 12 e 13".
+        * "grid-template-columns: repeat*auto-fill, 250px*;":
+            - Cria as colunas de fato *Somente o "display:grid;" n eh suficiente *ele cria apenas 1 coluna**;
+            - O metodo "repeat" eh pra criar as colunas de fato *criar as colunas e n repetir trocentas vezes a qtde de colunas q qro*;
+            - Explicacao do parametro "auto-fill" nas anotacoes "Aula 12 e 13".
     */
     grid-template-columns: repeat(auto-fill, 250px);
-    // Pra poder criar os espacamentos laterais entre os cards, e distribuir os cards de forma organizada no layout *distribuir no espaco disponivel*.
+    // "justify-content: space-between;" eh pra criar espacamentos laterais entre os cards e pra distribui-los de forma organizada no layout.
     justify-content: space-between;
-    // Pra poder criar o espacamento em baixo dos cards. ATENCAO! O 1o valor *33px* eh o espacamento em baixo dos cards, e o 2o valor *20px* eh o espacamento lateral entre os cards *esse valor pega qdo tu vai diminuindo a tela*.
+    /*
+        * "grid-gap: 33px 20px;" eh pra criar espacamento inferior nos cards;
+        * Como ler esse "33px 20px"?
+            R: "33px" eh o espacamento inferior dos cards, e "20px" eh o espacamento lateral entre os cards *q funciona qdo eu diminuo a tela*.
+    */
     grid-gap: 33px 20px;
 }
