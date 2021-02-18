@@ -5,6 +5,8 @@ import { ReactComponent as ProductImage } from '../../../../core/assets/images/p
 import ProductPrice from '../../../../core/components/ProductPrice';
 import { Product } from '../../../../core/types/Product';
 import { makeRequest } from '../../../../core/utils/request';
+import ProductInfoLoader from '../Loaders/ProductInfoLoader';
+import ProductDescriptionLoader from '../Loaders/ProductDescriptionLoader';
 import './styles.scss';
 
 /*
@@ -17,45 +19,57 @@ type ParamsType = {
 
 const ProductDetails = () => {
     const { productId } = useParams<ParamsType>();
-    
+
+    // LOADER *animacao q aparece enqt a pag tah carregando*.
+    const [isLoading, setIsLoading] = useState(false);
+
     // BUSCANDO OS DADOS DO PROD, QDO O COMPONENTE EH INICIALIZADO.
     useEffect(() => {
         //console.log('Componente "Detalhes do produto" iniciado!');
 
-        makeRequest({ url: `/products/${productId}` }).then(response => setProduct(response.data));
+        setIsLoading(true);
+        makeRequest({ url: `/products/${productId}` }).then(response => setProduct(response.data)).finally(() => setIsLoading(false));
 
     }, [productId]);
     // "productId" como dependencia pq preciso do id do produto pra solicitar as infos do prod pro backend. *Qdo o componente for inicializado, o id ja vai existir*.
 
     const [product, setProduct] = useState<Product>();
-    
+
     // "console.log..." eh pra testar no console se tá vindo os dados do prod.
     //console.log(product);
-    
+
     return (
         <div className="product-details-container">
             <div className="card-base border-radius-20 product-details">
-                <Link to ="/products" className="product-details-goback">
-                    <ArrowIcon className="icon-goback"/>
+                <Link to="/products" className="product-details-goback">
+                    <ArrowIcon className="icon-goback" />
                     <h1 className="text-goback">voltar</h1>
                 </Link>
                 <div className="row">
                     <div className="col-6 pr-5">
-                        <div className="product-details-card text-center">
-                            <img src={product?.imgUrl} alt={product?.name} className="product-details-image"/>
-                        </div>
-                        <h1 className="product-details-name">{product?.name}</h1>
-                        { product?.price && <ProductPrice price = {product?.price}/> }
+                        {isLoading ? <ProductInfoLoader /> : (
+                            <>
+                                <div className="product-details-card text-center">
+                                    <img src={product?.imgUrl} alt={product?.name} className="product-details-image" />
+                                </div>
+                                <h1 className="product-details-name">{product?.name}</h1>
+                                {product?.price && <ProductPrice price={product?.price} />}
+                            </>
+                        )}
                     </div>
                     <div className="col-6 product-details-card">
-                        <h1 className="product-description-title">Descrição do produto</h1>
-                        <p className="product-description-text">
-                            {product?.description}
-                        </p>
+                        {isLoading ? <ProductDescriptionLoader /> : (
+                            <>
+                                <h1 className="product-description-title">Descrição do produto</h1>
+                                <p className="product-description-text">
+                                    {product?.description}
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     );
 };
 // "{ product?.price &&..." tah explicado nas "anotacoes aula 22 e 23".
