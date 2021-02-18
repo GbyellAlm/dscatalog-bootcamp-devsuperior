@@ -28,3 +28,9 @@
     letter-spacing: -0.015em;
     color: #263238;
 }
+
+.product-card-image {
+    // "width: 160px;" e "height: 160px;" eh pra respeitar o tamanho da img dos cards do Figma. Dessa forma, se o usu tiver uma internet lenta, o componente vai carregar + rápido *do minuto 00:50 ao minuto 05:43 da aula0223 o prof explica como testar isso de internet lenta*. 
+    width: 160px;
+    height: 160px;
+}
