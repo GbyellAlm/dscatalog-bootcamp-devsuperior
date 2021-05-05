@@ -4,6 +4,7 @@ import { ProductsResponse } from '../../core/types/Product';
 import { makeRequest } from '../../core/utils/request';
 import ProductCard from './components/ProductCard';
 import ProductCardLoader from './components/Loaders/ProductCardLoader';
+import Pagination from '../../core/components/Pagination';
 import './styles.scss';
 
 const Catalog = () => {
@@ -11,6 +12,9 @@ const Catalog = () => {
         * "useState*false*" pq, logicamente falando, o valor padrao desse estado tem q ser falso, pois esse estado soh tem q existir qdo os dados estiverem sendo solicitados *qdo a pag estiver carregando *buscando dados**.
     */
     const [isLoading, setIsLoading] = useState(false);
+
+     // PAG ATIVA NO MOMENTO.
+     const [activePage, setActivePage] = useState(0);
     
     /*
         * BUSCANDO A LISTA DE PRODS DO BACKEND, QDO O COMPONENTE EH INICIALIZADO. 
@@ -33,8 +37,9 @@ const Catalog = () => {
         */
         
         const params = {
-            page: 0,
-            linesPerPage: 5
+            // "page: activePage" eh pra ir pra pag ativa no momento *seja a 1a msm ou seja a q cliquei*
+            page: activePage,
+            linesPerPage: 10
         }
         /*
             * O ".data" eh do Axios e dentro dele contem o tipo "Product.ts";
@@ -46,7 +51,8 @@ const Catalog = () => {
             // "setIsLoading*false*;" finaliza o "loader" apos a req terminar. N interessa se deu ruim ou n a req.
             setIsLoading(false);
         })
-    }, []);
+        // "activePage" como dependencia *"[activePage]"* pq toda vez q eu clicar em uma pag, o sistema tem q fazer dnv essa req *a req q esse codigo faz*, e popular a lista de itens *novos produtos nessa nova pag*. 
+    }, [activePage]);
 
     // POPULANDO O ESTADO "productsResponse" PRA PODER LISTAR OS PRODS DINAMICAMENTE.
     const [productsResponse, setProductsResponse] = useState<ProductsResponse>(); 
@@ -55,6 +61,7 @@ const Catalog = () => {
     //console.log(productsResponse);
 
     return (
+        // "{productsResponse &&...}" eh pra q as pags soh sejam renderizadas qdo houver uma resposta do backend *productsResponse*. Essa linha de codigo eh um "if". Esse "activePage" eh pra mudar a cor da bolinha qdo a pag q representa essa bolinha estiver ativa *c/ o status "active"*. 
         <div className="catalog-container">
             <h1 className="catalog-title">Catálogo de produtos</h1>
             <div className="catalog-products">
@@ -66,6 +73,7 @@ const Catalog = () => {
                     ))
                 )}
             </div>
+            {productsResponse && <Pagination totalPages={productsResponse.totalPages} activePage={activePage} onChange={page => setActivePage(page)}/>}
         </div>
     );
 }

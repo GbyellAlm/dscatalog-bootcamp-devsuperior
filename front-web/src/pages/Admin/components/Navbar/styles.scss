@@ -1,0 +1,36 @@
+.admin-nav-container {
+    width: 300px;
+    background-color: white;
+    /*
+        * "height: calc(100vh - 70px);" eh pra tirar o scroll q aparece ao definir "height: 100vh". O motivo do aparecimento desse scroll, é q a medida "100vh" está pegando abaixo da navbar. "70px" é a altura da navbar (to fazendo o "100vh" ignorar a altura do navbar, pra eliminar esse scroll);
+        * "vh" significa "altura da view". Mais informações sobre essa e outras unidades de medidas !==s nas minhas anotações da aula.
+    */
+    height: calc(100vh - 70px);
+}
+
+.admin-nav-item {
+    height: 80px;
+    /*
+        * "display: block;" eh pq o "height" n pega, pois o display padrao das tags "a" eh "inline";
+        * "display: flex" eh pq qro alinhar verticalmente o texto.
+    */
+    display: block;
+    border-bottom: 1px solid #e1e1e1;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+    color: #9e9e9e;
+
+    &.active {
+        background: rgba(64, 123, 255, 0.3);
+        color: #407bff;
+    }
+
+    &:hover {
+        color: #407bff;
+    }
+}

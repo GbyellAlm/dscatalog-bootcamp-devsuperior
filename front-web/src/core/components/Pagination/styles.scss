@@ -1,0 +1,57 @@
+.pagination-container {
+    // "display: flex;" eh pra q as bolinhas das pags fiquem uma ao lado da outra.
+    display: flex;
+    //"justify-content: center;" eh pra q as pags fiquem no meio da tela.
+    justify-content: center;
+    // "align-items: center;" eh pra alinhar verticalmente ao centro tdos os elementos dessa div. 
+    align-items: center;
+    // "margin-top: 35px;" eh pra respeitar o espacamento do Figma.
+    margin-top: 35px;
+}
+
+.pagination-item {
+    width: 40px;
+    height: 40px;
+    background: #e1e1e1;
+    // "border-radius: 50%;" eh pra criar o layout de bolinha.
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+    color: white;
+    // "display: flex;", "align-items: center;" e "justify-content: center;" eh pra centralizar o numero da pag na bolinha.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    // "margin-right: 10px;" eh pra respeitar os espacamentos das bolinhas *Figma*.
+    margin-right: 10px;
+
+    // Saas q deixa a bolinha da pag atual pintada.
+    &.active {
+        background: #407BFF;
+    }
+}
+
+.pagination-previous {
+    transform: rotate(-180deg);
+    margin-right: 24px;
+}
+
+.pagination-next {
+    // "margin-left: 14px;" eh pra respeitar o espacamento da seta *Figma*. Ele eh 14px e n 24px, pois tdas as bolinhas ja tem um espacamento a direita de 10px.
+    margin-left: 14px;
+}
+
+.page-active {
+    // "color: #407BFF;" eh pra respeitar o fato do Figma de q se tiver + pags ocultas pra aparecer, a seta tem q ficar azul.
+    color: #407BFF;
+    cursor: pointer;
+}
+
+.page-inactive {
+    color: #E1E1E1;
+    // "pointer-events: none;" desabilita o cursor de clique nesse elemento. C/ isso o usu n pode + avancar ou retroceder uma pag q n existe no backend.
+    pointer-events: none;
+}
