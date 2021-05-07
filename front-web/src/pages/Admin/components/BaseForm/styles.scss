@@ -1,0 +1,18 @@
+.admin-base-form {
+    padding: 70px 45px 50px 45px;
+    // "width: 1055px;" eh pra q em telas de desktops, o componente n assuma a largura total restante (pois senao os botoes ficam mt isolados la no cantao). OBS: Isso n eh responsivo. Dps isso vai ser arrumado no cap q dxa o sistema responsivo.
+    width: 1055px;
+}
+
+.base-form-title {
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #263238;
+}
+
+.base-form-actions {
+    margin-top: 70px;
+    // Por padrao, os botoes tem "display: inline", entao "text-align: right;" pra alinhar os botoes a direita.
+    text-align: right;
+}

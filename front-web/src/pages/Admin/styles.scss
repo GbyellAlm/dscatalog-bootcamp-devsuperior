@@ -1,0 +1,10 @@
+.admin-container {
+    display: flex;
+}
+
+.admin-content {
+    // "25px" top, "40px" right, "45px" bottom e "40px" left.
+    padding: 25px 40px 45px 40px;
+    // "flex: 1;" eh pra q essa "div" ocupe tda a largura disponível na tela (tda a largura disponível dps do navbar lateral).
+    flex: 1;
+}
