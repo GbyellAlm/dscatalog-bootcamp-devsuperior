@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import com.devsuperior.dscatalog.entities.User;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message = "Campo obrigatório")
 	private String firstName;
 	private String lastName;
+	@Email(message = "Favor inserir um e-mail válido")
 	private String email;
 	
 	List<RoleDTO> roles = new ArrayList<>();
