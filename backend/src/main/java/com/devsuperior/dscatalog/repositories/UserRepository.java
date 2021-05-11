@@ -7,5 +7,7 @@ import com.devsuperior.dscatalog.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-
+	
+	// Esse "User ..." eh pra q o Repository possa buscar um usu passando um e-mail como argumento.
+	User findByEmail(String email);
 }
