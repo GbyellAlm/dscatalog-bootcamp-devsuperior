@@ -18,6 +18,7 @@ public class JwtTokenEnhancer implements TokenEnhancer{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		User user = userRepository.findByEmail(authentication.getName());
@@ -26,10 +27,10 @@ public class JwtTokenEnhancer implements TokenEnhancer{
 		map.put("userFirstName", user.getFirstName());
 		map.put("userId", user.getId());
 		
-		// Esse "DefaultOAuth2AccessToken" eh um tipo especifico do "OAuth2AccessToken" q permite q eu insira as infos adicionais (q configurei a cima) no token.
-		DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+		DefaultOAuth2AccessToken token =  (DefaultOAuth2AccessToken) accessToken;
 		token.setAdditionalInformation(map);
 		
 		return accessToken;
-	}	
+	}
+
 }
