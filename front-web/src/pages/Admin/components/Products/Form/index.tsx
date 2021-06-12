@@ -1,8 +1,8 @@
 import React from 'react'
+import { makePrivateRequest } from 'core/utils/request';
 import BaseForm from '../../BaseForm';
 import { useState } from 'react';
 import './styles.scss';
-import { makeRequest } from 'core/utils/request';
 
 type FormState = {
     name: string;
@@ -37,7 +37,7 @@ const Form = () => {
             categories: [{ id: formData.category }]
         }
 
-        makeRequest({ url: '/products', method: 'POST', data: payload}).then(() => {
+        makePrivateRequest({ url: '/products', method: 'POST', data: payload}).then(() => {
             setFormData({ name: '', category: '', price: '', description: '' })
         });
     }

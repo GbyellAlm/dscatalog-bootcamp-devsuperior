@@ -10,6 +10,21 @@ type LoginResponse = {
     userId: number;
 }
 
+// SALVA OS DADOS DE SESSAO DO USU (AQUELES DADOS Q APARECEM COMO RESPOSTA DA REQ DE AUTENTICACAO NO POSTMAN) NO NAVEGADOR.
 export const saveSessionData = (loginResponse: LoginResponse) => {
     localStorage.setItem('authData', JSON.stringify(loginResponse));
 }
+
+/*
+    * RECUPERA OS DADOS DE SESSAO DO USU; 
+    * Esse "?? '{}'" eh pq o "sessionData" do "parsedSessionData" fica sublinhado em vermelho, pq posso passar um valor q n existe no "getItem" do "sessionData". Dai, p/ arrumar esse erro, basta dizer pro "getItem" q se ele tiver um valor q n existe, botar um objeto vazio (exatamente isso: "?? '{}'");
+    * "Null coalescing" eh o nome do operador "??" (pesquisar na net se quiser aprender mais sobre).
+*/
+export const getSessionData = () => {
+    const sessionData = localStorage.getItem('authData') ?? '{}';
+    const parsedSessionData = JSON.parse(sessionData);
+    
+    // Esse "as LoginResponse" eh basicamente p/ transformar os dados vindos no "parsedSessionData" no formato do "LoginResponse". Pq q tem q fazer isso? R: Pq o tipo do "parsedSessionData" eh "any", pois o "parse" do "JSON.parse" n transforma p/ esse formato do "LoginResponse". Esse "as" se chama "type casting".
+    return parsedSessionData as LoginResponse;
+}
+
