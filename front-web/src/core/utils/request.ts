@@ -1,6 +1,6 @@
 import axios, { Method } from 'axios';
 import qs from 'qs';
-import { CLIENT_ID, CLIENT_SECRET, getSessionData } from './auth';
+import { CLIENT_ID, CLIENT_SECRET, getSessionData, logout } from './auth';
 import history from './history';
 
 // UTILITARIO DO AXIOS PRA Q EU N PRECISE ESCREVER ESSE CODIGO TODA VEZ Q EU FOR UTILIZAR O AXIOS.
@@ -24,7 +24,7 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if (error.response.status === 401) {
-        history.push('/admin/auth/login');
+        logout();
     }
     return Promise.reject(error);
 });

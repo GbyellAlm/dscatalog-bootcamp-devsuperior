@@ -3,7 +3,8 @@
     color: white;
     // "align-items: center;" pq o display da "row" q coloquei como classe do elemento "<nav></nav>" jah eh "flex".
     align-items: center;
-    //padding-left: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
     // "margin-left: 0;" e "margin-right: 0;" sao customizacoes padrao do Bootstrap q ele add. N qro elas!
     margin-left: 0;
     margin-right: 0;
@@ -15,26 +16,30 @@
 
 .main-menu {
     display: flex;
+    justify-content: center;
+
+    // Essa sintaxe ("li" dentro do "main-menu") eh do Sass.
+    // "li:nth-child(2)" eh uma sintaxe do proprio CSS/ CSS puro e significa, nesse caso: "pegar o 2º "li" q tem nessa "ul". 
+    li:nth-child(2) {
+        margin-left: 85px;
+        margin-right: 85px;
+    }
+}
+
+.nav-link {
     font-size: 18px;
-    width: 380px;
-    // "justify-content: space-between;" espalha os links respeitando o tamanho de 380px do "main-menu". Ou seja, separa os links!
-    justify-content: space-between;
+    // "font-style: normal;" tira o sublinhado do link.
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.5);
+    
+    // "&.active" significa: "Tdo elemento HTML "<a></a>" q tiver a classe "active". *Configurando o estilo do link q tiver selecionado*.
+    &.active {
+        font-weight: bold;
+        color: white;
+    }
 
-    // Esse "a" pega tdos os links q estao dentro da classe "main-menu". * Eh o jeito Sass de fazer isso.
-    a {
-        // "font-style: normal;" tira o sublinhado do link.
-        font-style: normal;
-        color: rgba(255, 255, 255, 0.5);
-        
-        // "&.active" significa: "Tdo elemento HTML "<a></a>" q tiver a classe "active". *Configurando o estilo do link q tiver selecionado*.
-        &.active {
-            font-weight: bold;
-            color: white;
-        }
-
-        // "&:hover" eh pra mudar a cor do link q eu botar a seta em cima.
-        &:hover {
-            color: white;
-        }
+    // "&:hover" eh pra mudar a cor do link q eu botar a seta em cima.
+    &:hover {
+        color: white;
     }
 }

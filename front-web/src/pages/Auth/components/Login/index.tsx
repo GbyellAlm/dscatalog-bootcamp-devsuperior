@@ -1,6 +1,6 @@
 import ButtonIcon from 'core/components/ButtonIcon';
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import AuthCard from '../Card';
 import './styles.scss'
@@ -12,10 +12,17 @@ type FormData = {
     password: string;
 }
 
+type LocationState = {
+    from: string;
+}
+
 const Login = () => {
     const { register, handleSubmit, errors } = useForm<FormData>();
     const [hasError, setHasError] = useState(false);
     const history = useHistory();
+    let location = useLocation<LocationState>();
+
+    const { from } = location.state || { from: { pathname: "/admin" } };
 
     const onSubmit = (data: FormData) => {
         console.log(data);
@@ -24,7 +31,8 @@ const Login = () => {
             setHasError(false);
             // "saveSessionData" salva os dados de autenticacao do usu no navegador. Isso eh necessario p/ poder acessar as outras coisas q precisam de login tb.
             saveSessionData(response.data);
-            history.push('/admin')
+            // "replace" eh pra q qdo eu clicar no botao 'voltar' do navegador, eu seja redirecionado p/ a rota q eu tava antes da rota atual -> A rota atual eu to pq ao tentar acessar ela, eu n estava mais autenticado e ai fui redirecionado p/ a tela de login. Fiz o login e cai na rota q eu tava querendo acessar antes. MASS, se eu n tivesse o "replace", ao clicar no botão 'voltar' do navegador eu ia cair na tela de login (e eu n qro isso.). 
+            history.replace(from)
         }).catch(() => {
             setHasError(true);
         })
@@ -71,13 +79,13 @@ const Login = () => {
                             </div>
                         )}
                     </div>
-                    <Link to="/admin/auth/recover" className="login-link-recover">Esqueci a senha?</Link>
+                    <Link to="/auth/recover" className="login-link-recover">Esqueci a senha?</Link>
                     <div className="login-submit">
                         <ButtonIcon text="LOGAR" />
                     </div>
                     <div className="text-center">
                         <span className="not-registered">Não tem cadastro?</span>
-                        <Link to="/admin/auth/register" className="login-link-register">CADASTRAR</Link>
+                        <Link to="/auth/register" className="login-link-register">CADASTRAR</Link>
                     </div>
                 </form>
             </AuthCard>
